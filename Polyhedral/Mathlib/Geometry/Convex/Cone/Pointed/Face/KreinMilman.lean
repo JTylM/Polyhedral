@@ -166,15 +166,15 @@ lemma FG.krein_milman (hfg : C.FG) (hsal : C.Salient) :
     rw [← hs]
     exact subset_span hxs
   obtain ⟨f, hf, hf'⟩ := FG.farkas (Dual.eval R M) hxt
-  rw [← hs] at hsal
+  rw [← hs] at hsal hfg
   -- TODO exists_dual_pos₀ is a hole
   -- Der beweis würde benutzen dass die cone ein nicht-leeres relint hat. ABER: quick and dirty geht
   -- es schneller für FG cones. Man geht zur dualen cone, die ist auch FG (zumindest in endlich dim,
   -- was euch interessiert), und g ist dann die summe aller erzeuger der dual cone. Wenn du nicht in
   -- endl dim bist musst du die duale cone erst zerlegen in FG + lineal (dafür gibts ein lemma
   -- irgendwo) und dann die summe der erzeuger des FG anteils nehmen
-  obtain ⟨g, hg⟩ := exists_dual_pos₀ (Dual.eval R M) hsal
-  rw [hs] at hsal
+  obtain ⟨g, hg⟩ := exists_dual_pos₀ (Dual.eval R M) hsal hfg
+  rw [hs] at hsal hfg
   simp only [Dual.eval_apply, gt_iff_lt] at hf hf' hg
   rw [hs] at hg
   let F := C.opt f g hg
